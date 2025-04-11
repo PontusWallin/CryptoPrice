@@ -115,7 +115,14 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.99.5)
 
-  apps/api: {}
+  apps/api:
+    dependencies:
+      '@nestjs/axios':
+        specifier: ^4.0.0
+        version: 4.0.0(@nestjs/common@10.4.15(reflect-metadata@0.1.14)(rxjs@7.8.1))(axios@1.8.4)(rxjs@7.8.1)
+      axios:
+        specifier: ^1.8.4
+        version: 1.8.4
 
   apps/api-e2e: {}
 
@@ -1184,6 +1191,13 @@ packages:
 
   '@napi-rs/wasm-runtime@0.2.4':
     resolution: {integrity: sha512-9zESzOO5aDByvhIAsOy9TbpZ0Ur2AJbUI7UT73kcUTS2mxAMHOBaa1st/jAymNoCtvrit99kkzT1FZuXVcgfIQ==}
+
+  '@nestjs/axios@4.0.0':
+    resolution: {integrity: sha512-1cB+Jyltu/uUPNQrpUimRHEQHrnQrpLzVj6dU3dgn6iDDDdahr10TgHFGTmw5VuJ9GzKZsCLDL78VSwJAs/9JQ==}
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      axios: ^1.3.1
+      rxjs: ^7.0.0
 
   '@nestjs/common@10.4.15':
     resolution: {integrity: sha512-vaLg1ZgwhG29BuLDxPA9OAcIlgqzp9/N8iG0wGapyUNTf4IY4O6zAHgN6QalwLhFxq7nOI021vdRojR1oF3bqg==}
@@ -7000,6 +7014,12 @@ snapshots:
       '@emnapi/core': 1.4.0
       '@emnapi/runtime': 1.4.0
       '@tybys/wasm-util': 0.9.0
+
+  '@nestjs/axios@4.0.0(@nestjs/common@10.4.15(reflect-metadata@0.1.14)(rxjs@7.8.1))(axios@1.8.4)(rxjs@7.8.1)':
+    dependencies:
+      '@nestjs/common': 10.4.15(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      axios: 1.8.4
+      rxjs: 7.8.1
 
   '@nestjs/common@10.4.15(reflect-metadata@0.1.14)(rxjs@7.8.1)':
     dependencies:
