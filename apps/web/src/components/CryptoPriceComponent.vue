@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import type { CryptoPrice } from 'components/model';
+import axios from 'axios';
 
-const prices = ref<CryptoPrice[]>([
-  {
-    pair: 'TON/USDT',
-    price: 1234,
-    source: 'Coingecko',
-    timestamp: Date.now(),
-  },
-  {
-    pair: 'USDT/TON',
-    price: 4321,
-    source: 'Coingecko',
-    timestamp: Date.now(),
-  },
-]);
+const prices = ref<CryptoPrice[]>([]);
+
+onMounted(async () => {
+  const response = await axios.get('/api');
+  prices.value = response.data;
+});
 
 </script>
 
