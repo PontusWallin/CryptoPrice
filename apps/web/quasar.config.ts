@@ -65,7 +65,7 @@ export default defineConfig((/* ctx */) => {
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
-      
+
       vitePlugins: [
         ['vite-plugin-checker', {
           vueTsc: true,
@@ -79,6 +79,12 @@ export default defineConfig((/* ctx */) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
+      proxy: { // proxy all requests starting with /api to the backend server
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true
+        }
+      },
       // https: true,
       open: true // opens browser window automatically
     },
