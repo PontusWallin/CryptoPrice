@@ -10,8 +10,8 @@ const prices = ref<CryptoPrice[]>([
     timestamp: Date.now(),
   },
   {
-    pair: 'TON/USDT',
-    price: 1234,
+    pair: 'USDT/TON',
+    price: 4321,
     source: 'Coingecko',
     timestamp: Date.now(),
   },
