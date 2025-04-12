@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { map, Observable } from 'rxjs';
 
+const BASE_URL = 'https://api.coingecko.com/api/v3/';
+
 @Injectable()
 export class AppService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  private coingeckoURL = 'https://api.coingecko.com/api/v3/coins/the-open-network/tickers';
+  private coingeckoURL = BASE_URL + 'coins/the-open-network/tickers';
 
   async getData(): Promise<Observable<any>> {
 
