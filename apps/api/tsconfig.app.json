@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "sourceMap": true,
+    "emitDeclarationOnly": false,  // ✅ override the root setting
     "outDir": "dist",
     "types": ["node"],
     "rootDir": "src",

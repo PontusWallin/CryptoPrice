@@ -5,19 +5,12 @@
   "nx": {
     "targets": {
       "build": {
-        "executor": "nx:run-commands",
+        "executor": "@nx/js:tsc",
         "options": {
-          "command": "webpack-cli build",
-          "args": [
-            "node-env=production"
-          ]
-        },
-        "configurations": {
-          "development": {
-            "args": [
-              "node-env=development"
-            ]
-          }
+          "main": "apps/api/src/main.ts",
+          "tsConfig": "apps/api/tsconfig.app.json",
+          "outputPath": "apps/api/dist",
+          "assets": []
         }
       },
       "serve": {
@@ -48,6 +41,8 @@
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
-    "axios": "^1.8.4"
+    "@nestjs/cache-manager": "^3.0.1",
+    "axios": "^1.8.4",
+    "cache-manager": "^6.4.2"
   }
 }
