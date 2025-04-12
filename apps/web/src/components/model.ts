@@ -1,5 +1,5 @@
 // TODO add to a shared lib later
-export  interface CryptoPrice {
+export  interface CryptoTicker {
   pair: string;
   price: number;
   source: string;
