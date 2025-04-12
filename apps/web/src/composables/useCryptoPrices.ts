@@ -7,12 +7,11 @@ export function useCryptoPrices() {
   const loading = ref(false);
   const error = ref('');
 
-  const fetchPrices = async () => {
+  const fetchPrices = async (coinId: string) => {
     loading.value = true;
     error.value = '';
 
     try {
-      const coinId = 'the-open-network';
       const response = await axios.get('/api/tickers/' + coinId);
       tickers.value = response.data;
     } catch (err) {
