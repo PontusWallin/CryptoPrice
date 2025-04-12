@@ -12,7 +12,8 @@ export function useCryptoPrices() {
     error.value = '';
 
     try {
-      const response = await axios.get('/api');
+      const coinId = 'the-open-network';
+      const response = await axios.get('/api/tickers/' + coinId);
       tickers.value = response.data;
     } catch (err) {
       error.value = 'Error fetching crypto prices';

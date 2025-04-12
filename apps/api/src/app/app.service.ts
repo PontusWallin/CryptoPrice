@@ -14,16 +14,16 @@ export class AppService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) {}
 
-  private coingeckoURL = BASE_URL + 'coins/the-open-network/tickers';
+  async getTickersForCoin(coinId: string): Promise<Observable<any>> {
+    const coinGeckoUrl = BASE_URL + `coins/${coinId}/tickers`;
 
-  async getTONTickers(): Promise<Observable<any>> {
-    const cachedTickerData = await this.cacheManager.get('ton-ticker-data');
-
+    const cacheKey = `${coinId}-ticker-data`;
+    const cachedTickerData = await this.cacheManager.get(cacheKey);
     if (cachedTickerData) {
       return of(cachedTickerData);
     }
 
-    return this.httpService.get(this.coingeckoURL).pipe(
+    return this.httpService.get(coinGeckoUrl).pipe(
       map((response: any) => {
         const tickers = response.data.tickers;
 
@@ -50,7 +50,11 @@ export class AppService {
           });
       }),
       mergeMap((tickers) => {
-        return from(this.cacheManager.set('ton-ticker-data', tickers, 5*60*1000)).pipe(
+        if(tickers.length < 1) {
+          return of([]);
+        }
+
+        return from(this.cacheManager.set(cacheKey, tickers, 5*60*1000)).pipe(
           map(() => tickers) // Pass tickers downstream after caching is done
         );
       }),
