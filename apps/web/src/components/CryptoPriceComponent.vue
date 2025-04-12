@@ -15,6 +15,7 @@ defineProps<{
     </q-card-section>
     <q-card-section>
       <div class="text-h6">Source: {{ ticker.source }}</div>
+      <div class="text-h6">Timestamp: {{ ticker.timestamp }}</div>
     </q-card-section>
   </q-card>
 </template>
