@@ -38,7 +38,6 @@ const selectedCoin = ref('the-open-network'); // default
 const { loading, error, tickers, fetchPrices } = useCryptoPrices();
 
 watch(selectedCoin, async (newCoin) => {
-  console.log('selected coin changed to', newCoin);
   await fetchPrices(newCoin);
 });
 
