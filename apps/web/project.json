@@ -12,6 +12,12 @@
       "options": {
         "command": "cd apps/web && quasar build"
       }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/web && vitest"
+      }
     }
   },
   "tags": []
