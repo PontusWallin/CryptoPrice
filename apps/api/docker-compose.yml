@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: crypto-price-db
+    environment:
+      POSTGRES_USER: pontus
+      POSTGRES_PASSWORD: password1234
+      POSTGRES_DB: crypto_price
+    ports:
+      - "5432:5432"

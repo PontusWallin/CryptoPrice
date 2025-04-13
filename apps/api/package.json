@@ -42,8 +42,15 @@
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
     "@nestjs/cache-manager": "^3.0.1",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/schedule": "^5.0.1",
     "@nestjs/swagger": "^11.1.2",
+    "@prisma/client": "6.6.0",
     "axios": "^1.8.4",
     "cache-manager": "^6.4.2"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^10.0.2",
+    "prisma": "^6.6.0"
   }
 }
