@@ -152,8 +152,6 @@ importers:
         specifier: ^6.6.0
         version: 6.6.0(typescript@5.7.3)
 
-  apps/api-e2e: {}
-
   apps/web:
     dependencies:
       '@quasar/extras':
