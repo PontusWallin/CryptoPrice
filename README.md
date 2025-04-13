@@ -49,7 +49,7 @@ A full-stack application to fetch, cache, and display cryptocurrency price data 
    ```
 7. **Open app**:
 - Frontend: [`http://localhost:9000`](http://localhost:9000)
-- Swagger Docs: [`http://localhost:9000/docs`](http://localhost:9000/docs)
+- Swagger Docs: [`http://localhost:3000/docs`](http://localhost:9000/docs)
 
 8. **Run tests**:
    ```sh
