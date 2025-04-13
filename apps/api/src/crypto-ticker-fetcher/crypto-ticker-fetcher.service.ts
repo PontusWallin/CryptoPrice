@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import type { Cache } from 'cache-manager';
@@ -57,7 +57,7 @@ export class CryptoTickerFetcherService {
       }),
       catchError((err) => {
         console.error('Error fetching tickers from CoinGecko - ', err.message);
-        return of([]);
+        throw new HttpException('Error fetching tickers from CoinGecko', 500);
       })
     );
   }

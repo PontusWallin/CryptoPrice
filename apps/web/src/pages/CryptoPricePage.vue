@@ -17,10 +17,10 @@
         />
       </div>
       <p v-if="loading">loading crypto prices...</p>
-      <p v-else-if="!loading && !error && tickers.length === 0" class="text-red-500">
+      <p v-else-if="!loading && !error && tickers.length === 0">
         No data available
       </p>
-      <p v-else-if="error" class="text-red-8">Error when trying to fetch crypto prices {{ error }}</p>
+      <p v-else-if="error" class="text-red-8">{{ error }}</p>
       <div v-else class="q-gutter-md row justify-center">
         <crypto-price-component
           class="text-white col-xs-12 col-sm-5 col-md-4 col-lg-3"
