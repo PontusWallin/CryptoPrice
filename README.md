@@ -76,4 +76,4 @@ This project was built as a proof of concept with a robust and scalable base.  H
 - **Shared libraries with shared data structure**: Currently, the backend and frontend use different data structures. This is not a problem for this project, but in a larger project, it would be useful to have a shared library with the data structure. This reduces data duplication and improves maintainability.
 
 ## 🧠 Built with intention
-Every tool and pattern used in this project was chosen to deliver clean architecture and build something scaleable
+Every tool and pattern used in this project was chosen to deliver clean architecture and build something scalable for lots of future growth. I am confident this project can serve as a base for some very cool applications in the future!
