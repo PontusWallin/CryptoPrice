@@ -1,31 +1,37 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <div class="q-mb-lg" style="max-width: 300px; width: 100%">
-      <q-select
-        v-model="selectedCoin"
-        :options="[
-          { label: 'TON', value: 'the-open-network' },
-          { label: 'Bitcoin', value: 'bitcoin' },
-          { label: 'Ethereum', value: 'ethereum' },
-          { label: 'Litecoin', value: 'litecoin' },
-        ]"
-        label="Select a coin"
-        filled
-        map-options
-        emit-value
-      />
+  <div class="q-pa-lg text-center">
+    <div class="flex-row gap-4 justify-center">
+      <div class="q-mb-lg q-mx-auto" style="max-width: 300px; width: 100%">
+        <q-select
+          v-model="selectedCoin"
+          :options="[
+            { label: 'TON', value: 'the-open-network' },
+            { label: 'Bitcoin', value: 'bitcoin' },
+            { label: 'Ethereum', value: 'ethereum' },
+            { label: 'Litecoin', value: 'litecoin' },
+          ]"
+          label="Select a coin"
+          filled
+          map-options
+          emit-value
+        />
+      </div>
+      <p v-if="loading">loading crypto prices...</p>
+      <p v-else-if="!loading && !error && tickers.length === 0" class="text-red-500">
+        No data available
+      </p>
+      <p v-else-if="error" class="text-red-8">Error when trying to fetch crypto prices {{ error }}</p>
+      <div v-else class="q-gutter-md row justify-center">
+        <crypto-price-component
+          class="text-white col-xs-12 col-sm-5 col-md-4 col-lg-3"
+          style="max-width: 250px; background: radial-gradient(circle, #2c8ee1 0%, #014a88 100%)"
+          v-for="ticker in tickers"
+          :key="ticker.pair"
+          :ticker="ticker"
+        />
+      </div>
     </div>
-    <div class="q-gutter-md row justify-center">
-      <crypto-price-component
-        class="bg-yellow-3"
-        v-for="ticker in tickers"
-        :key="ticker.pair"
-        :ticker="ticker"
-      />
-    </div>
-    <p v-if="error" class="text-red-500">{{ error }}</p>
-    <p v-if="loading" class="text-red-500">loading...</p>
-  </q-page>
+  </div>
 </template>
 
 <script setup lang="ts">
