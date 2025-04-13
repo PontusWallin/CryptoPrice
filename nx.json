@@ -50,7 +50,7 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      },
+      }
     }
   ],
   "targetDefaults": {
