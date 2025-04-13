@@ -3,15 +3,21 @@
   "targets": {
     "serve-all": {
       "executor": "nx:run-commands",
-        "options": {
-            "command": "nx run-many --target=serve --projects=api,web --parallel"
-        }
+      "options": {
+        "command": "nx run-many --target=serve --projects=api,web --parallel"
+      }
     },
     "build-all": {
       "executor": "nx:run-commands",
-        "options": {
-            "command": "nx run-many --target=build --projects=api,web --parallel"
-        }
+      "options": {
+        "command": "nx run-many --target=build --projects=api,web --parallel"
+      }
+    },
+    "test-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many --target=test --projects=api,web --parallel"
+      }
     }
   }
 }
