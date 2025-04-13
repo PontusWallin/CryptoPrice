@@ -14,6 +14,7 @@ export function useCryptoPrices() {
     try {
       const response = await axios.get('/api/tickers/' + coinId);
       tickers.value = response.data;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       error.value = 'Error fetching crypto prices, please try again later';
     } finally {
