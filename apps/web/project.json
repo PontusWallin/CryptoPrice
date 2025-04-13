@@ -16,7 +16,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "cd apps/web && vitest"
+        "command": "cd apps/web && vitest run"
       }
     }
   },
