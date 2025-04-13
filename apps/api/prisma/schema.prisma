@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -15,9 +14,9 @@ datasource db {
 }
 
 model CryptoTicker {
-  id          String   @id @default(uuid())
-  coinId      String
-  pair        String
-  price       Float
-  lastUpdated DateTime
+  id        String   @id @default(uuid())
+  pair      String
+  price     Float
+  source    String
+  timestamp DateTime
 }

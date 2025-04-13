@@ -12,6 +12,7 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { PrismaService } from '../../prisma.service';
 
 const BASE_URL = 'https://api.coingecko.com/api/v3/';
 
@@ -20,13 +21,14 @@ export class PriceFetchCronService {
 
   constructor(
     private readonly httpService: HttpService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private prisma: PrismaService
   ) {}
 
   // We're fetching a small number of coins using a simple loop for now. In the future when we need to fetch more coins
   // we will split this into task queues and use a more sophisticated approach, to avoid hitting the rate limit
   // @Cron('0 */20 * * * *') // Every 20 minutes at second 0
-  @Cron('10 * * * * *') // Every second
+  @Cron('10 * * * * *') // Every 10 seconds
   async preFetchCryptoTickers() {
     const coinIds = [
       'bitcoin',
@@ -35,18 +37,23 @@ export class PriceFetchCronService {
       'litecoin',
     ]
 
-    console.log('Fetching tickers for coins:', coinIds);
-
     const allFetchedTickers = [];
     for (const coinId of coinIds) {
       const currentTicker = await firstValueFrom(await this.fetchSingleCryptoTicker(coinId));
       allFetchedTickers.push(...currentTicker);
     }
 
-    console.log('allFetchedTickers', allFetchedTickers);
-
     // we have the tickers, and the fetchSingleCryptoTicker function has already cached them
     // we are now ready to save them to the database
+    // change timestamp to date in UTC
+    allFetchedTickers.forEach((ticker) => {
+      ticker.timestamp = new Date(ticker.timestamp);
+    });
+
+   await  this.prisma.cryptoTicker.createMany({
+      data: allFetchedTickers
+    });
+
 
   }
 

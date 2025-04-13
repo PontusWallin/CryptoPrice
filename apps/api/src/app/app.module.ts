@@ -6,15 +6,16 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PriceFetchCronService } from '../cron/price-fetch-cron/price-fetch-cron.service';
+import { PrismaService } from '../prisma.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     HttpModule,
     CacheModule.register(),
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService, PriceFetchCronService],
+  providers: [AppService, PriceFetchCronService, PrismaService],
 })
 export class AppModule {}
