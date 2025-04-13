@@ -5,6 +5,13 @@
   "scripts": {},
   "private": true,
   "devDependencies": {
+    "@vue/eslint-config-prettier": "^10.1.0",
+    "@vue/eslint-config-typescript": "^14.4.0",
+    "autoprefixer": "^10.4.2",
+    "eslint-plugin-vue": "^9.30.0",
+    "globals": "^15.12.0",
+    "vue-tsc": "^2.0.29",
+    "@vue/test-utils": "^2.4.4",
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
@@ -43,7 +50,8 @@
     "vite-plugin-checker": "^0.9.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.9",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "prisma": "^6.6.0"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.2",

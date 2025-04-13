@@ -48,9 +48,5 @@
     "@prisma/client": "6.6.0",
     "axios": "^1.8.4",
     "cache-manager": "^6.4.2"
-  },
-  "devDependencies": {
-    "@nestjs/testing": "^10.0.2",
-    "prisma": "^6.6.0"
   }
 }
