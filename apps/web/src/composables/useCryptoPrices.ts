@@ -16,7 +16,6 @@ export function useCryptoPrices() {
       tickers.value = response.data;
     } catch (err) {
       error.value = 'Error fetching crypto prices, please try again later';
-      console.error(err);
     } finally {
       loading.value = false;
     }

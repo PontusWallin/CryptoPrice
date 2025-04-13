@@ -31,6 +31,6 @@ describe('useCryptoPrices composable', () => {
 
     await fetchPrices('invalid-coin');
 
-    expect(error.value).toBe('Error fetching crypto prices');
+    expect(error.value).toBe('Error fetching crypto prices, please try again later');
   });
 });
