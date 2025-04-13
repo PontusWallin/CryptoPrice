@@ -1,67 +1,45 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CACHE_MANAGER} from "@nestjs/cache-manager";
 import type { Cache } from 'cache-manager'
-
-const BASE_URL = 'https://api.coingecko.com/api/v3/';
+import { PrismaService } from '../prisma.service';
+import { CryptoTickerFetcherService } from '../crypto-ticker-fetcher/crypto-ticker-fetcher.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppService {
 
   constructor(
-    private readonly httpService: HttpService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+    private cryptoTickerFetcherService: CryptoTickerFetcherService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private prisma: PrismaService,
+    private configService: ConfigService
   ) {}
 
   async getTickersForCoin(coinId: string): Promise<Observable<any>> {
-    const coinGeckoUrl = BASE_URL + `coins/${coinId}/tickers`;
-
     const cacheKey = `${coinId}-ticker-data`;
     const cachedTickerData = await this.cacheManager.get(cacheKey);
     if (cachedTickerData) {
       return of(cachedTickerData);
     }
 
-    return this.httpService.get(coinGeckoUrl).pipe(
-      map((response: any) => {
-        const tickers = response.data.tickers;
-
-        return tickers
-          .filter((t: any) => t.target === 'USDT' && t.market.identifier === 'binance')
-          .flatMap((t: any) => {
-            const timestamp = Date.now();
-
-            const normal = {
-              pair: `${t.base}/${t.target}`,
-              price: t.last,
-              source: t.market.name,
-              timestamp,
-            };
-
-            const reversed = {
-              pair: `${t.target}/${t.base}`,
-              price: 1 / t.last,
-              source: t.market.name,
-              timestamp,
-            };
-
-            return [normal, reversed];
-          });
-      }),
-      mergeMap((tickers) => {
-        if(tickers.length < 1) {
-          return of([]);
+    // return from db if not cached for some reason
+    const tickersFromDb = await this.prisma.cryptoTicker.findMany({
+      where: {
+        pair: {
+          contains: coinId
+        },
+        timestamp: {
+          gt: new Date(Date.now() - this.configService.get<number>('TTL', 30000)) // less than ttl minutes old
         }
+      }
+    });
 
-        return from(this.cacheManager.set(cacheKey, tickers, 5*60*1000)).pipe(
-          map(() => tickers) // Pass tickers downstream after caching is done
-        );
-      }),
-      catchError((err) => {
-        console.error('Error fetching tickers from CoinGecko - ', err.message);
-        return of([]);
-      })
-    );
+    if(tickersFromDb.length > 0) {
+      return of(tickersFromDb);
+    }
+
+    // oops, not found in db either, we have to fetch directly from CoinGecko
+    return await this.cryptoTickerFetcherService.fetchCryptoTicker(coinId);
   }
 }

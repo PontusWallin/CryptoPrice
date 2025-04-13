@@ -7,13 +7,17 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PriceFetchCronService } from '../cron/price-fetch-cron/price-fetch-cron.service';
 import { PrismaService } from '../prisma.service';
+import { CryptoTickerFetcherModule } from '../crypto-ticker-fetcher/crypto-ticker-fetcher.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     HttpModule,
     CacheModule.register(),
     ScheduleModule.forRoot(),
+    CryptoTickerFetcherModule,
   ],
   controllers: [AppController],
   providers: [AppService, PriceFetchCronService, PrismaService],
