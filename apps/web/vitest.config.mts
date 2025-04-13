@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, type Plugin } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -23,5 +23,5 @@ export default defineConfig({
       sassVariables: 'src/quasar-variables.scss',
     }),
     tsconfigPaths(),
-  ],
+  ] as Plugin[],
 });
